@@ -1,6 +1,6 @@
 package com.desafio.comeia.repositories;
 
-import com.desafio.comeia.pojo.Account;
+import com.desafio.comeia.pojos.Account;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

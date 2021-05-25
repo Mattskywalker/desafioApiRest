@@ -1,6 +1,6 @@
 package com.desafio.comeia.repositories;
 
-import com.desafio.comeia.pojo.Account;
+import com.desafio.comeia.pojos.Account;
 
 import java.util.List;
 
