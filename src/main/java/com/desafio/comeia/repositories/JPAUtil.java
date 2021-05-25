@@ -1,4 +1,4 @@
-package com.desafio.comeia.repository;
+package com.desafio.comeia.repositories;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
