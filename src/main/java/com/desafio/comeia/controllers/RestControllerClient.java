@@ -1,7 +1,9 @@
 package com.desafio.comeia.controllers;
 
+import com.desafio.comeia.business.Transactions;
 import com.desafio.comeia.pojos.Account;
 import com.desafio.comeia.pojos.Client;
+import com.desafio.comeia.pojos.RequestTransaction;
 import com.desafio.comeia.repositories.BankAccountRepository;
 import com.desafio.comeia.repositories.BankAccountRepositoryInterface;
 import com.desafio.comeia.repositories.ClientRepository;
@@ -10,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -90,6 +93,43 @@ public class RestControllerClient {
         return bankAccountRepository.update(account);
 
     }
+
+    @PostMapping("/bank-accounts/transactions")
+    @ApiOperation(value = "através desse metodo é possível transferir valores entre contas")
+    public List<Account> transferTransaction(@RequestBody RequestTransaction requestTransaction){
+
+        double transferValue = requestTransaction.getTransferValue();
+        String creditAccountNumber = requestTransaction.getAccountCreditNumber();
+        String debitAccountNumber = requestTransaction.getAccountDebitNumber();
+
+        Account creditAccount = bankAccountRepository.getByAccountNumber(creditAccountNumber);
+        Account debitAccount = bankAccountRepository.getByAccountNumber(debitAccountNumber);
+
+        Transactions tx = new Transactions();
+
+        if(tx.transfer(transferValue,debitAccount, creditAccount)){
+
+            bankAccountRepository.update(creditAccount);
+            bankAccountRepository.update(debitAccount);
+
+            List<Account> updated = new ArrayList<>();
+            updated.add(creditAccount);
+            updated.add(debitAccount);
+
+            return updated;
+
+        }else{
+            return null;
+        }
+
+    }
+
+    @GetMapping("/bank-accounts/transactions")
+    @ApiOperation(value = "Este metodo retorna uma Conta do BD através do seu id")
+    public RequestTransaction indexRequest(){
+        return new RequestTransaction("123","12345",500);
+    }
+
 
 
 
