@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
-@Api(value = "API REST clientes")
+@Api(value = "API REST clients")
 @CrossOrigin(origins = "*")
 public class RestControllerClient {
 
     ClientRepositoryInterface clientRepository = new ClientRepository();
 
-    @GetMapping("/clientes")
+    @GetMapping("/clients")
     @ResponseBody
     @ApiOperation(value = "Este metodo retorna uma lista de clientes do banco de dados")
     public List<Client> index(){
@@ -26,25 +26,25 @@ public class RestControllerClient {
         return a;
     }
 
-    @GetMapping("/cliente/{id}")
+    @GetMapping("/clients/{id}")
     @ApiOperation(value = "Este metodo retorna um cliente do BD através do seu id")
     public Client show(@PathVariable(value = "id") String id){
         return clientRepository.getByID(id);
     }
 
-    @PostMapping("/cliente")
+    @PostMapping("/clients")
     @ApiOperation(value = "Este metodo salva clientes no banco de dados e depois disso o retorna")
     public Client create(@RequestBody Client client){
         return clientRepository.save(client);
     }
 
-    @DeleteMapping("/cliente")
+    @DeleteMapping("/clients")
     @ApiOperation(value = "Este metodo deleta clientes do banco de dados")
     public void destroy(@RequestBody Client client){
         clientRepository.delete(client);
     }
 
-    @PutMapping("/cliente")
+    @PutMapping("/clients")
     @ApiOperation(value = "Este metodo faz alterações nos dados dos clientes do banco de dados")
     public Client update(@RequestBody Client client){
 
