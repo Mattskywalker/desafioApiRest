@@ -1,12 +1,12 @@
-package com.desafio.comeia.pojo;
+package com.desafio.comeia.pojos;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "bankAccount", schema = "apicomeiarepository")
+@Table(name = "bankAccount")
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @ManyToOne
     private Client owner;
@@ -18,7 +18,6 @@ public class Account {
 
     public Account() {
     }
-
     public Account(String id, Client owner, String accountNumber, double balance) {
         this.id = id;
         this.owner = owner;
