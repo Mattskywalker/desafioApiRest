@@ -26,10 +26,20 @@ public class RestControllerClient {
         return clientRepository.getByID(id);
     }
 
-    @PostMapping("/clientes")
+    @PostMapping("/cliente")
     public Client create(@RequestBody Client client){
-
         return clientRepository.save(client);
+    }
+
+    @DeleteMapping("/cliente")
+    public void destroy(@RequestBody Client client){
+        clientRepository.delete(client);
+    }
+
+    @PutMapping("/cliente")
+    public Client update(@RequestBody Client client){
+
+       return clientRepository.update(client);
 
     }
 

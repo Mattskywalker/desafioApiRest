@@ -23,6 +23,9 @@ public class ComeiaApplication {
 		clientRepository.save(client);
 		clientRepository.save(client1);
 
+		clientRepository.update(new Client("2", Type.PJ,"123.627.134-32",
+				"ClienteNovo","Caruaru","81 883146584"));
+
 
 
 

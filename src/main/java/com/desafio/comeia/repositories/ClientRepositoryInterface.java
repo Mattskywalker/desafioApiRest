@@ -14,7 +14,7 @@ public interface ClientRepositoryInterface{
 
     public List<Client> getAll();
 
-    public void update(Client client);
+    public Client update(Client client);
 
 
 }
