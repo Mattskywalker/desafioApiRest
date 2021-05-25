@@ -13,7 +13,9 @@ public interface ClientRepositoryInterface{
 
     public Client getByID(String id);
 
-    public List<Client> findAll();
+    public List<Client> getAll();
+
+    public void update(Client client);
 
 
 }
