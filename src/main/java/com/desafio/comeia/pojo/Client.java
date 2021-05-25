@@ -3,10 +3,8 @@ package com.desafio.comeia.pojo;
 
 import com.desafio.comeia.enums.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
@@ -21,20 +19,37 @@ public class Client {
     @Column
     private String name;
     @Column
-    private String aderess;
+    private String address;
     @Column
     private String phoneNumber;
+    @Column
+    @OneToMany(mappedBy = "owner")
+    private List<Account> bankAccounts;
 
     public Client() {
     }
 
-    public Client(String id, Type userType, String document, String name, String aderess, String phoneNumber) {
+    public Client(String id, Type userType, String document, String name, String address, String phoneNumber) {
         this.id = id;
         this.userType = userType;
         this.document = document;
         this.name = name;
-        this.aderess = aderess;
+        this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Client(String id, Type userType,
+                  String document, String name,
+                  String address, String phoneNumber,
+                  List<Account> bankAccounts
+    ) {
+        this.id = id;
+        this.userType = userType;
+        this.document = document;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.bankAccounts = bankAccounts;
     }
 
     public String getId() {
@@ -69,12 +84,12 @@ public class Client {
         this.name = name;
     }
 
-    public String getAderess() {
-        return aderess;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAderess(String aderess) {
-        this.aderess = aderess;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhoneNumber() {
