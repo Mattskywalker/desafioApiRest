@@ -4,9 +4,24 @@ import com.desafio.comeia.pojos.Account;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccountRepository implements BankAccountRepositoryInterface{
+
+    @Override
+    public Account getByAccountNumber(String accountNumber) {
+
+        List<Account> accountList = this.getAll();
+
+        for(Account a: accountList){
+            if(a.getAccountNumber().equals(accountNumber)){
+                return a;
+            }
+        }
+
+        return null;
+    }
 
     @Override
     public Account save(Account account) {

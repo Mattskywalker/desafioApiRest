@@ -12,6 +12,8 @@ public interface BankAccountRepositoryInterface {
 
     public Account getByID(String id);
 
+    public Account getByAccountNumber(String accountNumber);
+
     public List<Account> getAll();
 
     public Account update(Account account);
