@@ -1,7 +1,6 @@
-package com.desafio.comeia.repository;
+package com.desafio.comeia.repositories;
 
 import com.desafio.comeia.pojo.Client;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -10,21 +9,27 @@ import java.util.List;
 public class ClientRepository implements ClientRepositoryInterface{
 
     @Override
-    public void save(Client client) {
+    public Client save(Client client) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
+
+        Client a = null;
 
         try{
             tx.begin();
             em.persist(client);
             tx.commit();
+            a = this.getByID(client.getId());
+
 
         }catch (Exception e){
             e.printStackTrace();
+            return null;
         }
         finally {
             em.close();
         }
+        return a;
     }
 
     @Override
@@ -80,7 +85,7 @@ public class ClientRepository implements ClientRepositoryInterface{
 
         try{
             tx.begin();
-             allClient = (List<Client>) em.createQuery("select a from Client a",Client.class);
+             allClient = em.createQuery("select a from Client a",Client.class).getResultList();
             tx.commit();
 
         }catch (Exception e){

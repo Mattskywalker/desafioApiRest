@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ClientTable")
+@Table(name = "client")
 public class Client {
 
     @Id
@@ -25,6 +25,8 @@ public class Client {
     @Column
     private String phoneNumber;
 
+    public Client() {
+    }
 
     public Client(String id, Type userType, String document, String name, String aderess, String phoneNumber) {
         this.id = id;

@@ -1,13 +1,12 @@
-package com.desafio.comeia.repository;
+package com.desafio.comeia.repositories;
 
 import com.desafio.comeia.pojo.Client;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface ClientRepositoryInterface{
 
-    public void save(Client client);
+    public Client save(Client client);
 
     public void delete(Client client);
 
