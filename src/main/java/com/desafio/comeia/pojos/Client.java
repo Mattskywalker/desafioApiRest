@@ -1,9 +1,10 @@
-package com.desafio.comeia.pojo;
+package com.desafio.comeia.pojos;
 
 
 import com.desafio.comeia.enums.Type;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,8 +24,7 @@ public class Client {
     @Column
     private String phoneNumber;
     @Column
-    @OneToMany(mappedBy = "owner")
-    private List<Account> bankAccounts;
+    private String creationDate;
 
     public Client() {
     }
@@ -36,6 +36,7 @@ public class Client {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.creationDate = new Date().toString();
     }
 
     public Client(String id, Type userType,
@@ -49,7 +50,7 @@ public class Client {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.bankAccounts = bankAccounts;
+        this.creationDate = new Date().toString();
     }
 
     public String getId() {
@@ -98,5 +99,13 @@ public class Client {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 }
