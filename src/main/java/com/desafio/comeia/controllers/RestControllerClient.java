@@ -1,13 +1,12 @@
 package com.desafio.comeia.controllers;
 
 import com.desafio.comeia.business.Transactions;
+import com.desafio.comeia.enums.TransactionType;
 import com.desafio.comeia.pojos.Account;
+import com.desafio.comeia.pojos.BankTransaction;
 import com.desafio.comeia.pojos.Client;
 import com.desafio.comeia.pojos.RequestTransaction;
-import com.desafio.comeia.repositories.BankAccountRepository;
-import com.desafio.comeia.repositories.BankAccountRepositoryInterface;
-import com.desafio.comeia.repositories.ClientRepository;
-import com.desafio.comeia.repositories.ClientRepositoryInterface;
+import com.desafio.comeia.repositories.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -70,7 +69,7 @@ public class RestControllerClient {
 
     @GetMapping("/bank-accounts/{id}")
     @ApiOperation(value = "Este metodo retorna uma Conta do BD através do seu id")
-    public Account showAccounts(@PathVariable(value = "id") String id){
+    public Account showAccounts(@PathVariable(value = "id") Integer id){
         return bankAccountRepository.getByID(id);
     }
 
@@ -97,21 +96,21 @@ public class RestControllerClient {
     @PostMapping("/bank-accounts/transactions")
     @ApiOperation(value = "através desse metodo é possível transferir valores entre contas")
     public List<Account> transferTransaction(@RequestBody RequestTransaction requestTransaction){
-
+        /*
+        * Coletando dados da requisição
+        */
         double transferValue = requestTransaction.getTransferValue();
         String creditAccountNumber = requestTransaction.getAccountCreditNumber();
         String debitAccountNumber = requestTransaction.getAccountDebitNumber();
-
+        /*
+        * Acessando as contas no banco de dados;
+        */
         Account creditAccount = bankAccountRepository.getByAccountNumber(creditAccountNumber);
         Account debitAccount = bankAccountRepository.getByAccountNumber(debitAccountNumber);
 
-        Transactions tx = new Transactions();
+        Transactions transactionOperation = new Transactions();
 
-        if(tx.transfer(transferValue,debitAccount, creditAccount)){
-
-            bankAccountRepository.update(creditAccount);
-            bankAccountRepository.update(debitAccount);
-
+        if(transactionOperation.transfer(transferValue,debitAccount, creditAccount)){//realiza a transferencia;
 
             List<Account> updated = new ArrayList<>();
             updated.add(creditAccount);
