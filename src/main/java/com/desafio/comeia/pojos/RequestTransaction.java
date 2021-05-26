@@ -1,5 +1,12 @@
 package com.desafio.comeia.pojos;
 
+
+/**
+ * @author Mattskywalker
+ *
+ * Classe modelo para a requisição; serve apenas para este proposito;
+ */
+
 public class RequestTransaction {
 
     private String accountDebitNumber;
