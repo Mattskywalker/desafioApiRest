@@ -26,32 +26,32 @@ public class RestControllerClient {
 
     @GetMapping("/clients")
     @ResponseBody
-    @ApiOperation(value = "Este metodo retorna uma lista de clientes do banco de dados")
+    @ApiOperation(value = "Este método retorna uma lista de clientes do banco de dados")
     public List<Client> index(){
         List<Client> a = clientRepository.getAll();
         return a;
     }
 
     @GetMapping("/clients/{id}")
-    @ApiOperation(value = "Este metodo retorna um cliente do BD através do seu id")
+    @ApiOperation(value = "Este método retorna um cliente do BD através do seu id")
     public Client show(@PathVariable(value = "id") Integer id){
         return clientRepository.getByID(id);
     }
 
     @PostMapping("/clients")
-    @ApiOperation(value = "Este metodo salva clientes no banco de dados e depois disso o retorna")
+    @ApiOperation(value = "Este método salva clientes no banco de dados e depois disso o retorna")
     public Client create(@RequestBody Client client){
         return clientRepository.save(client);
     }
 
     @DeleteMapping("/clients")
-    @ApiOperation(value = "Este metodo deleta clientes do banco de dados")
+    @ApiOperation(value = "Este método deleta clientes do banco de dados")
     public void destroy(@RequestBody Client client){
         clientRepository.delete(client);
     }
 
     @PutMapping("/clients")
-    @ApiOperation(value = "Este metodo faz alterações nos dados dos clientes do banco de dados")
+    @ApiOperation(value = "Este método faz alterações nos dados dos clientes do banco de dados")
     public Client update(@RequestBody Client client){
 
        return clientRepository.update(client);
@@ -62,32 +62,38 @@ public class RestControllerClient {
 
     @GetMapping("/bank-accounts")
     @ResponseBody
-    @ApiOperation(value = "Este metodo retorna uma lista de Contas do banco de dados")
+    @ApiOperation(value = "Este método retorna uma lista de Contas do banco de dados")
     public List<Account> indexAccounts(){
         List<Account> a = bankAccountRepository.getAll();
         return a;
     }
 
     @GetMapping("/bank-accounts/{id}")
-    @ApiOperation(value = "Este metodo retorna uma Conta do BD através do seu id")
+    @ApiOperation(value = "Este método retorna uma Conta do BD através do seu id")
     public Account showAccounts(@PathVariable(value = "id") Integer id){
         return bankAccountRepository.getByID(id);
     }
 
+    @GetMapping("/bank-accounts/number/{id}")
+    @ApiOperation(value = "Este método retorna uma Conta do BD através do seu numero de conta")
+    public Account showAccountsByNumber(@PathVariable(value = "id") String id){
+        return bankAccountRepository.getByAccountNumber(id);
+    }
+
     @PostMapping("/bank-accounts")
-    @ApiOperation(value = "Este metodo salva Contas no banco de dados e depois disso o retorna")
+    @ApiOperation(value = "Este método salva Contas no banco de dados e depois disso o retorna")
     public Account createAccounts(@RequestBody Account account){
         return bankAccountRepository.save(account);
     }
 
     @DeleteMapping("/bank-accounts")
-    @ApiOperation(value = "Este metodo deleta Contas do banco de dados")
+    @ApiOperation(value = "Este método deleta Contas do banco de dados")
     public void destroyAccounts(@RequestBody Account account){
         bankAccountRepository.delete(account);
     }
 
     @PutMapping("/bank-accounts")
-    @ApiOperation(value = "Este metodo faz alterações nos dados dos Contas do banco de dados")
+    @ApiOperation(value = "Este método faz alterações nos dados dos Contas do banco de dados")
     public Account updateAccounts(@RequestBody Account account){
 
         return bankAccountRepository.update(account);
@@ -95,7 +101,7 @@ public class RestControllerClient {
     }
 
     @PostMapping("/bank-accounts/transactions")
-    @ApiOperation(value = "através desse metodo é possível transferir valores entre contas")
+    @ApiOperation(value = "através desse método é possível transferir valores entre contas")
     public List<Account> transferTransaction(@RequestBody RequestTransaction requestTransaction){
         /*
         * Coletando dados da requisição
@@ -126,13 +132,13 @@ public class RestControllerClient {
     }
 
     @GetMapping("/bank-accounts/transactions")
-    @ApiOperation(value = "Este metodo retorna apenas o formato da requisição, para fins de teste")
+    @ApiOperation(value = "Este método retorna apenas o formato da requisição, para fins de teste")
     public RequestTransaction indexRequest(){
         return new RequestTransaction("123","12345",500);
     }
 
     @GetMapping("/bank-accounts/transactions-history")
-    @ApiOperation("Este metodo retorna uma lista com o historico de todas as transações já feitas")
+    @ApiOperation("Este método retorna uma lista com o historico de todas as transações já feitas")
     public List<BankTransaction> indexBankTransactions(){
 
         return transactionRecorder.getAll();

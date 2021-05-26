@@ -18,6 +18,23 @@ public class ComeiaApplication {
 
 	public static void main(String[] args) {
 
+
+
+		try{
+
+			Client empresa = new Client(Type.PJ,"23.456.213/0001-04","XPTO",
+					"Caruaru, PE","81 98989898");
+
+			Account xptoAccount = new Account(empresa,"000",0);
+
+			new ClientRepository().save(empresa);
+			new BankAccountRepository().save(xptoAccount);
+
+
+		}catch (Exception e){
+			System.err.println("ERRO" + e.getMessage());
+		}
+
 		SpringApplication.run(ComeiaApplication.class, args);
 	}
 

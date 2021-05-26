@@ -19,6 +19,8 @@ public class Transactions {
     private ClientRepositoryInterface clientRepository = new ClientRepository();
     private BankAccountRepositoryInterface bankAccountRepository = new BankAccountRepository();
 
+    private Account xptoAccount = bankAccountRepository.getByAccountNumber("000");
+
     public boolean transfer(double transferValue,Account debit, Account credit){
 
         Double operationCost = this.debit(debit,transferValue);
@@ -40,6 +42,10 @@ public class Transactions {
                     debitOwner,creditOwner,operationCost);
 
             transactionRecorder.save(registro);
+
+            Double currentValue = xptoAccount.getBalance();
+            xptoAccount.setBalance(currentValue + operationCost);
+            this.bankAccountRepository.update(xptoAccount);
 
             return true;
         }else{
