@@ -34,7 +34,7 @@ public class RestControllerClient {
 
     @GetMapping("/clients/{id}")
     @ApiOperation(value = "Este metodo retorna um cliente do BD através do seu id")
-    public Client show(@PathVariable(value = "id") String id){
+    public Client show(@PathVariable(value = "id") Integer id){
         return clientRepository.getByID(id);
     }
 
@@ -111,6 +111,7 @@ public class RestControllerClient {
 
             bankAccountRepository.update(creditAccount);
             bankAccountRepository.update(debitAccount);
+
 
             List<Account> updated = new ArrayList<>();
             updated.add(creditAccount);

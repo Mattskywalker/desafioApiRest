@@ -30,7 +30,7 @@ class TransactionsRepositoryTest {
             transactionRecorder.delete(bankTransactionMock);
 
         }else{
-            System.out.println("se for null, é por que já existe!");
+            //System.out.println("se for null, é por que já existe!");
 
             transactionRecorder.delete(bankTransactionMock);
         }

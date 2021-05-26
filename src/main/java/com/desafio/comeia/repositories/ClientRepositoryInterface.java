@@ -10,7 +10,7 @@ public interface ClientRepositoryInterface{
 
     public void delete(Client client);
 
-    public Client getByID(String id);
+    public Client getByID(Integer id);
 
     public List<Client> getAll();
 

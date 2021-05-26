@@ -2,6 +2,7 @@ package com.desafio.comeia.pojos;
 
 
 import com.desafio.comeia.enums.Type;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +13,8 @@ import java.util.List;
 public class Client {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)//FIXED
+    private Integer id;
     @Column
     private Type userType;
     @Column
@@ -25,12 +27,16 @@ public class Client {
     private String phoneNumber;
     @Column
     private String creationDate;
+    @Column
+    private Double creditTransations;
+    @Column
+    private Double debitTransations;
+
 
     public Client() {
     }
 
-    public Client(String id, Type userType, String document, String name, String address, String phoneNumber) {
-        this.id = id;
+    public Client(Type userType, String document, String name, String address, String phoneNumber) {
         this.userType = userType;
         this.document = document;
         this.name = name;
@@ -39,12 +45,12 @@ public class Client {
         this.creationDate = new Date().toString();
     }
 
-    public Client(String id, Type userType,
+    public Client(Type userType,
                   String document, String name,
                   String address, String phoneNumber,
                   List<Account> bankAccounts
     ) {
-        this.id = id;
+
         this.userType = userType;
         this.document = document;
         this.name = name;
@@ -53,11 +59,11 @@ public class Client {
         this.creationDate = new Date().toString();
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -107,5 +113,21 @@ public class Client {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Double getCreditTransations() {
+        return creditTransations;
+    }
+
+    public void setCreditTransations(Double creditTransations) {
+        this.creditTransations = creditTransations;
+    }
+
+    public Double getDebitTransations() {
+        return debitTransations;
+    }
+
+    public void setDebitTransations(Double debitTransations) {
+        this.debitTransations = debitTransations;
     }
 }

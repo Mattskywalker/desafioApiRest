@@ -54,7 +54,7 @@ public class ClientRepository implements ClientRepositoryInterface{
     }
 
     @Override
-    public Client getByID(String id) {
+    public Client getByID(Integer id) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
 
