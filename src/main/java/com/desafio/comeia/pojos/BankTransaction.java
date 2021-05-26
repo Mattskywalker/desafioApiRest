@@ -6,43 +6,43 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@SequenceGenerator(
-        name="sequence_ausencia",
-        sequenceName="wf_sq_ausencia",
-        allocationSize=1
-)
 public class BankTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column
-    private Date transactionDate;
+    private Date transactionDate;// data é gerada quando a classe é criada;
     @Column
-    private Double value;
+    private double value;
     @Column
     private TransactionType transactionType;
-    /*@Column
+    @ManyToOne
     private Client debitClient;
+    @ManyToOne
+    private Client creditClient;
     @Column
-    private Client creditClient;*/
-    @Column
-    private Double operationValue;
+    private double operationCost;// valor de custo da operação;
 
 
 
     public BankTransaction() {
     }
 
-    public BankTransaction(Double value,
-                           TransactionType transactionType,Double operationValue) {
+    public BankTransaction( double value, TransactionType transactionType,
+                            Client debitClient, Client creditClient,
+                            double operationCost
+    ) {
+        this.transactionDate = new Date();
         this.value = value;
         this.transactionType = transactionType;
-        /*this.debitClient = debitClient;
-        this.creditClient = creditClient;*/
-        this.operationValue = operationValue;
-        this.transactionDate = new Date();
+        this.debitClient = debitClient;
+        this.creditClient = creditClient;
+        this.operationCost = operationCost;
     }
+
+
+
 
     public Integer getId() {
         return id;
@@ -60,11 +60,11 @@ public class BankTransaction {
         this.transactionDate = transactionDate;
     }
 
-    public Double getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -74,5 +74,30 @@ public class BankTransaction {
 
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
+    }
+
+    @JoinColumn(name = "cliente_debitado")
+    public Client getDebitClient() {
+        return debitClient;
+    }
+
+    public void setDebitClient(Client debitClient) {
+        this.debitClient = debitClient;
+    }
+    @JoinColumn(name = "cliente_creditado")
+    public Client getCreditClient() {
+        return creditClient;
+    }
+
+    public void setCreditClient(Client creditClient) {
+        this.creditClient = creditClient;
+    }
+
+    public double getOperationCost() {
+        return operationCost;
+    }
+
+    public void setOperationCost(double operationCost) {
+        this.operationCost = operationCost;
     }
 }
