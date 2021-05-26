@@ -1,14 +1,15 @@
 package com.desafio.comeia.repositories;
 
+import com.desafio.comeia.pojos.Account;
 import com.desafio.comeia.pojos.BankTransaction;
-import com.desafio.comeia.pojos.Client;
-import io.swagger.models.auth.In;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class TransactionsRepository implements TransactionRecorder{
+public class TransactionRepository implements TransactionRecorder{
+
+
 
     @Override
     public BankTransaction save(BankTransaction bankTransaction) {
