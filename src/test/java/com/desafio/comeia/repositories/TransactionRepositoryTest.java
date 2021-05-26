@@ -2,17 +2,15 @@ package com.desafio.comeia.repositories;
 
 import com.desafio.comeia.enums.TransactionType;
 import com.desafio.comeia.pojos.BankTransaction;
-import com.desafio.comeia.pojos.Client;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TransactionsRepositoryTest {
+class TransactionRepositoryTest {
 
-    TransactionRecorder transactionRecorder = new TransactionsRepository();
+    TransactionRecorder transactionRecorder = new TransactionRepository();
     BankTransaction bankTransactionMock =
-            new BankTransaction(500D, TransactionType.DEBIT,1D);
+            new BankTransaction();
 
     @Test
     void save() {
