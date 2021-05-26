@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Table(name = "bankAccount")
 public class Account {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @ManyToOne
     private Client owner;
 
@@ -18,18 +18,27 @@ public class Account {
 
     public Account() {
     }
-    public Account(String id, Client owner, String accountNumber, double balance) {
+
+    public Account(Integer id, Client owner, String accountNumber, double balance) {
         this.id = id;
         this.owner = owner;
         this.accountNumber = accountNumber;
         this.balance = balance;
     }
 
-    public String getId() {
+    public Account(Client owner, String accountNumber, double balance) {
+        this.owner = owner;
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
