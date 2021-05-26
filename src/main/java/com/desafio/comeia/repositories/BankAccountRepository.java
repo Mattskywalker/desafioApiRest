@@ -4,7 +4,6 @@ import com.desafio.comeia.pojos.Account;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccountRepository implements BankAccountRepositoryInterface{
@@ -69,7 +68,7 @@ public class BankAccountRepository implements BankAccountRepositoryInterface{
     }
 
     @Override
-    public Account getByID(String id) {
+    public Account getByID(Integer id) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
 

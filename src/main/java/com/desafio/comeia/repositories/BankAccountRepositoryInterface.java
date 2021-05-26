@@ -10,7 +10,7 @@ public interface BankAccountRepositoryInterface {
 
     public void delete(Account account);
 
-    public Account getByID(String id);
+    public Account getByID(Integer id);
 
     public Account getByAccountNumber(String accountNumber);
 
