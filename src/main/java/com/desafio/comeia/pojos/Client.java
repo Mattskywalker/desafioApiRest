@@ -28,9 +28,9 @@ public class Client {
     @Column
     private String creationDate;
     @Column
-    private Double creditTransations;
+    private double creditTransations;
     @Column
-    private Double debitTransations;
+    private double debitTransations;
 
 
     public Client() {
@@ -45,18 +45,19 @@ public class Client {
         this.creationDate = new Date().toString();
     }
 
-    public Client(Type userType,
-                  String document, String name,
-                  String address, String phoneNumber,
-                  List<Account> bankAccounts
-    ) {
-
+    public Client(Integer id, Type userType, String document, String name,
+                  String address, String phoneNumber, String creationDate) {
+        this.id = id;
         this.userType = userType;
         this.document = document;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.creationDate = new Date().toString();
+        this.creationDate = creationDate;
+    }
+
+    public Client(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
