@@ -21,10 +21,11 @@ public class Transactions {
 
     public boolean transfer(double transferValue,Account debit, Account credit){
 
-        if(this.debit(debit,transferValue)){//passando daqui a transação pode ser feita;
+        Double operationCost = this.debit(debit,transferValue);
+
+        if(operationCost > 0){//passando daqui a transação pode ser feita;
             this.credit(credit,transferValue);//credita o valor;
             System.out.println("debitado e creditado: " + debit.getBalance() + " e " + credit.getBalance());
-
 
             Client debitOwner = debit.getOwner();
             Client creditOwner = credit.getOwner();
@@ -32,11 +33,13 @@ public class Transactions {
             this.bankAccountRepository.update(debit);
             this.bankAccountRepository.update(credit);
 
-            transactionRecorder.save(new BankTransaction(transferValue, TransactionType.TEF,
-                    debitOwner,creditOwner,0));
-
             this.clientRepository.update(debitOwner);
             this.clientRepository.update(creditOwner);
+
+            BankTransaction registro = new BankTransaction(transferValue, TransactionType.TEF,
+                    debitOwner,creditOwner,operationCost);
+
+            transactionRecorder.save(registro);
 
             return true;
         }else{
@@ -56,17 +59,44 @@ public class Transactions {
     }
 
 
-    public boolean debit(Account account, double value){
+    public double debit(Account account, double value){
         double accountValue = account.getBalance();
+        double debitTransactionsNumber = account.getOwner().getDebitTransations();
+        /*
+        * Até 10 movimentações o cliente irá pagar R$ 1,00 por movimentação;
+        * De 10 a 20 movimentações o cliente irá pagar R$ 0,75 por movimentação;
+        * Acima de 20 movimentações o cliente irá pagar R$ 0,50 por movimentação;
+        */
+
+        double operationCost;
+
+        if(debitTransactionsNumber <= 10){
+            //Até 10 movimentações o cliente irá pagar R$ 1,00 por movimentação;
+            operationCost = 1;
+            value = value + operationCost;
+            System.out.println("valor final" + value);
+
+        }else if(debitTransactionsNumber <= 20){
+            //De 10 a 20 movimentações o cliente irá pagar R$ 0,75 por movimentação;
+            operationCost = 0.75;
+            value = value + operationCost;
+            System.out.println("valor final" + value);
+        }else{
+            //Acima de 20 movimentações o cliente irá pagar R$ 0,50 por movimentação;
+            operationCost = 0.50;
+            value = value + operationCost;
+            System.out.println("valor final" + value);
+        }
+
 
         if(accountValue >= value){
             account.setBalance(account.getBalance() - value);
 
             new TransactionClientRegister().saveDebitTransaction(account);
 
-            return true;
+            return operationCost;
         }else{
-            return false;
+            return 0;
         }
 
     }

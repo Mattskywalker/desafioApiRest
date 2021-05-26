@@ -22,6 +22,7 @@ public class RestControllerClient {
 
     ClientRepositoryInterface clientRepository = new ClientRepository();
     BankAccountRepositoryInterface bankAccountRepository = new BankAccountRepository();
+    TransactionRecorder transactionRecorder = new TransactionRepository();
 
     @GetMapping("/clients")
     @ResponseBody
@@ -125,10 +126,18 @@ public class RestControllerClient {
     }
 
     @GetMapping("/bank-accounts/transactions")
-    @ApiOperation(value = "Este metodo retorna uma Conta do BD através do seu id")
+    @ApiOperation(value = "Este metodo retorna apenas o formato da requisição, para fins de teste")
     public RequestTransaction indexRequest(){
         return new RequestTransaction("123","12345",500);
     }
+
+    @GetMapping("/bank-accounts/transactions-history")
+    @ApiOperation("Este metodo retorna uma lista com o historico de todas as transações já feitas")
+    public List<BankTransaction> indexBankTransactions(){
+
+        return transactionRecorder.getAll();
+    }
+
 
 
 
