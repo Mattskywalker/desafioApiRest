@@ -12,7 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -41,6 +43,8 @@ public class RestControllerClient {
     @PostMapping("/clients")
     @ApiOperation(value = "Este método salva clientes no banco de dados e depois disso o retorna")
     public Client create(@RequestBody Client client){
+
+        client.setCreationDate(new Date().toString());
         return clientRepository.save(client);
     }
 
@@ -82,9 +86,25 @@ public class RestControllerClient {
 
     @PostMapping("/bank-accounts")
     @ApiOperation(value = "Este método salva Contas no banco de dados e depois disso o retorna" +
-            " (Importante: no momento, é necessario que se cadastre um cliente antes de atribuir uma conta)")
+            " (Importante: no momento, é necessario passar apenas o document de um cliente já existente;)")
     public Account createAccounts(@RequestBody Account account){
-        return bankAccountRepository.save(account);
+
+        String documentOwner = account.getOwner().getDocument();
+
+        Client owner = null;
+        try {
+            owner = this.clientRepository.getByDocument(documentOwner);
+            owner.equals(null);
+
+            account.setOwner(owner);
+            return bankAccountRepository.save(account);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+
     }
 
     @DeleteMapping("/bank-accounts")
