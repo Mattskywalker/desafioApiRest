@@ -12,6 +12,8 @@ public interface ClientRepositoryInterface{
 
     public Client getByID(Integer id);
 
+    public Client getByDocument(String document);
+
     public List<Client> getAll();
 
     public Client update(Client client);

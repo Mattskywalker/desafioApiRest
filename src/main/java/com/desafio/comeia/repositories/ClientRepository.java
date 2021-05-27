@@ -76,6 +76,19 @@ public class ClientRepository implements ClientRepositoryInterface{
         return aux;
     }
 
+    public Client getByDocument(String document){
+
+        List<Client> listClient = this.getAll();
+
+        for (Client a:listClient) {
+
+            if(a.getDocument().equals(document)){
+                return a;
+            }
+        }
+        return null;
+    }
+
     @Override
     public List<Client> getAll() {
         EntityManager em = JPAUtil.getEntityManager();
