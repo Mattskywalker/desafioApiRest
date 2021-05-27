@@ -18,9 +18,11 @@ public class ComeiaApplication {
 
 	public static void main(String[] args) {
 
+
 		Client empresa = new Client(Type.PJ,"23.456.213/0001-04","XPTO",
 				"Caruaru, PE","81 98989898");
 
+		//conta da empresa é criada com um numero estatico padrão;
 		Account xptoAccount = new Account(empresa,"000",0);
 
 		try{
