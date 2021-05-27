@@ -18,21 +18,20 @@ public class ComeiaApplication {
 
 	public static void main(String[] args) {
 
+		Client empresa = new Client(Type.PJ,"23.456.213/0001-04","XPTO",
+				"Caruaru, PE","81 98989898");
 
+		Account xptoAccount = new Account(empresa,"000",0);
 
 		try{
 
-			Client empresa = new Client(Type.PJ,"23.456.213/0001-04","XPTO",
-					"Caruaru, PE","81 98989898");
-
-			Account xptoAccount = new Account(empresa,"000",0);
-
-			new ClientRepository().save(empresa);
-			new BankAccountRepository().save(xptoAccount);
-
+			Client encontrado = new ClientRepository().getByDocument(empresa.getDocument());
+			encontrado.equals(null);
 
 		}catch (Exception e){
 			System.err.println("ERRO" + e.getMessage());
+			new ClientRepository().save(empresa);
+			new BankAccountRepository().save(xptoAccount);
 		}
 
 		SpringApplication.run(ComeiaApplication.class, args);
