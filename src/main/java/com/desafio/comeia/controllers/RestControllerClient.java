@@ -81,7 +81,8 @@ public class RestControllerClient {
     }
 
     @PostMapping("/bank-accounts")
-    @ApiOperation(value = "Este método salva Contas no banco de dados e depois disso o retorna")
+    @ApiOperation(value = "Este método salva Contas no banco de dados e depois disso o retorna" +
+            " (Importante: no momento, é necessario que se cadastre um cliente antes de atribuir uma conta)")
     public Account createAccounts(@RequestBody Account account){
         return bankAccountRepository.save(account);
     }

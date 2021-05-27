@@ -32,9 +32,10 @@ public class Transactions {
             Client debitOwner = debit.getOwner();
             Client creditOwner = credit.getOwner();
 
+            //salvando novo estado no banco de dados;
             this.bankAccountRepository.update(debit);
             this.bankAccountRepository.update(credit);
-
+            //salvando transação do cliente no banco de dados;
             this.clientRepository.update(debitOwner);
             this.clientRepository.update(creditOwner);
 
@@ -73,7 +74,6 @@ public class Transactions {
         * De 10 a 20 movimentações o cliente irá pagar R$ 0,75 por movimentação;
         * Acima de 20 movimentações o cliente irá pagar R$ 0,50 por movimentação;
         */
-
         double operationCost;
 
         if(debitTransactionsNumber <= 10){
@@ -93,7 +93,6 @@ public class Transactions {
             value = value + operationCost;
             System.out.println("valor final" + value);
         }
-
 
         if(accountValue >= value){
             account.setBalance(account.getBalance() - value);
