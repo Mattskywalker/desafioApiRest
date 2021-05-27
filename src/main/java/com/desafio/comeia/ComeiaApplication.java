@@ -19,6 +19,11 @@ public class ComeiaApplication {
 	public static void main(String[] args) {
 
 
+		/*
+		link do SWAGGER
+		//http://localhost:8081/swagger-ui.html#!
+		 */
+
 		Client empresa = new Client(Type.PJ,"23.456.213/0001-04","XPTO",
 				"Caruaru, PE","81 98989898");
 
